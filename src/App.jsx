@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { GlobalProvider } from "./context/GlobalState";
+import { Header } from "./components/Header";
+import { Balance } from "./components/Balance";
+import { IncomeExpenses } from "./components/IncomeExpenses";
+import { TransactionList } from "./components/transactions/TransactionList";
+import { TransactionForm } from "./components/transactions/TransactionForm";
+import { ExpenseChart } from "./components/ExpenseChart";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <GlobalProvider>
+      <div className="bg-neutral-950 text-white h-screen flex justify-center items-center">
+        <div className="w-2/5 flex justify-center items-center">
+          <div className="bg-neutral-800 p-10 rounded-md w-full">
+            <Header />
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div className="flex-1">
+                <IncomeExpenses />
+                <Balance />
+                <TransactionForm />
+              </div>
+              <div className="flex-1 flex flex-col">
+                <ExpenseChart />
+                <TransactionList />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </GlobalProvider>
+  );
 }
 
-export default App
+export default App;
